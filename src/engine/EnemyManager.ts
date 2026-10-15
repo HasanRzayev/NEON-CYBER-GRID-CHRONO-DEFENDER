@@ -32,13 +32,23 @@ export class EnemyManager {
     return this.currentBoss !== null && this.currentBoss.health > 0;
   }
 
-  public startWave(waveNumber: number) {
+  public startWave(waveNumber: number, particles?: ParticleSystem, width?: number, height?: number) {
     this.wave = waveNumber;
     this.waveTimer = 0;
     this.enemiesSpawnedThisWave = 0;
     this.maxEnemiesPerWave = 15 + waveNumber * 8;
     this.isBossWave = waveNumber % 5 === 0;
     this.currentBoss = null;
+
+    if (particles && width && height) {
+      particles.addFloatingText(
+        this.isBossWave ? `⚠️ SECTOR ${waveNumber}: BOSS OVERLORD` : `SECTOR ${waveNumber}: ESCALATION`,
+        width / 2,
+        height / 2 - 80,
+        this.isBossWave ? '#ff0055' : '#00f0ff',
+        true
+      );
+    }
 
     if (this.isBossWave) {
       soundManager.playBossWarning();
@@ -78,7 +88,7 @@ export class EnemyManager {
       this.enemiesSpawnedThisWave >= this.maxEnemiesPerWave &&
       this.enemies.length === 0
     ) {
-      this.startWave(this.wave + 1);
+      this.startWave(this.wave + 1, particles, width, height);
     }
 
     // Update individual enemies
@@ -586,6 +596,20 @@ export class EnemyManager {
         };
     }
 
+    // Elite mutant mutation for higher waves
+    const isElite = this.wave >= 3 && Math.random() < Math.min(0.35, 0.05 + this.wave * 0.03);
+    if (isElite) {
+      enemy.isElite = true;
+      enemy.health *= 1.8;
+      enemy.maxHealth *= 1.8;
+      enemy.speed *= 1.2;
+      enemy.radius *= 1.25;
+      enemy.color = '#ff1155';
+      enemy.glowColor = '#ff0033';
+      enemy.points *= 2.5;
+      enemy.xpValue *= 2;
+    }
+
     this.enemies.push(enemy);
   }
 
@@ -698,7 +722,16 @@ export class EnemyManager {
       ctx.beginPath();
       ctx.arc(0, 0, e.radius * 0.35, 0, Math.PI * 2);
       ctx.fillStyle = '#ffffff';
-      ctx.fill();
+      // Elite Glowing Hazard Ring
+      if (e.isElite) {
+        ctx.beginPath();
+        ctx.arc(0, 0, e.radius * 1.5, 0, Math.PI * 2);
+        ctx.strokeStyle = '#ff0055';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
 
       ctx.restore();
 

@@ -55,6 +55,7 @@ export interface Enemy {
   maxShield?: number;
   stateTimer: number;
   isBoss?: boolean;
+  isElite?: boolean;
   bossPhase?: number;
   specialTimer?: number;
 }

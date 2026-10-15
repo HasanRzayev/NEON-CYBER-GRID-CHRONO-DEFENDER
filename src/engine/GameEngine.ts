@@ -162,7 +162,7 @@ export class GameEngine {
     this.stats.chronoTimeUsed = 0;
     this.stats.highestCombo = 1;
 
-    this.enemies.startWave(1);
+    this.enemies.startWave(1, this.particles, width, height);
     soundManager.startMusic();
     this.setState('playing');
 
