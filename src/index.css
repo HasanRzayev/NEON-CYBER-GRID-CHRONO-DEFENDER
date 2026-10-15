@@ -1,0 +1,79 @@
+/* Base Reset & Cyberpunk Theme Foundations */
+:root {
+  --font-display: 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+
+  /* Curated Neon Color Palette */
+  --bg-deep: #030712;
+  --bg-surface: rgba(10, 18, 36, 0.75);
+  --bg-surface-elevated: rgba(16, 28, 56, 0.85);
+
+  --neon-cyan: #00f0ff;
+  --neon-teal: #00ffcc;
+  --neon-chrono: #00ffaa;
+  --neon-magenta: #ff00ff;
+  --neon-pink: #ff0077;
+  --neon-red: #ff2255;
+  --neon-gold: #ffcc00;
+  --neon-purple: #9d00ff;
+  --neon-amber: #ffaa00;
+
+  --border-neon: rgba(0, 240, 255, 0.25);
+  --border-neon-bright: rgba(0, 240, 255, 0.6);
+
+  --shadow-neon-cyan: 0 0 20px rgba(0, 240, 255, 0.35);
+  --shadow-neon-red: 0 0 20px rgba(255, 34, 85, 0.4);
+  --shadow-neon-gold: 0 0 20px rgba(255, 204, 0, 0.4);
+
+  --text-primary: #e6f7ff;
+  --text-secondary: #90a4cb;
+  --text-muted: #536b94;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* Subtle CRT Scanline overlay effect */
+body::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 999;
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(3, 7, 18, 0.9);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 3px;
+}
