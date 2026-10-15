@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GameEngine } from './engine/GameEngine';
 import type { GameState, GameStats, Augment, PlayerStats } from './types/game';
+import { LanguageProvider } from './i18n/LanguageContext';
 import { HUD } from './components/HUD';
 import { MainMenu } from './components/MainMenu';
 import { UpgradeModal } from './components/UpgradeModal';
@@ -10,7 +11,7 @@ import { AchievementsModal } from './components/AchievementsModal';
 import { VirtualControls } from './components/VirtualControls';
 import './App.css';
 
-export default function App() {
+function GameApp() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const engineRef = useRef<GameEngine | null>(null);
 
@@ -173,5 +174,13 @@ export default function App() {
         />
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <GameApp />
+    </LanguageProvider>
   );
 }

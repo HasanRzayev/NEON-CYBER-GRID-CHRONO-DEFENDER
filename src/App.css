@@ -577,6 +577,53 @@
 }
 
 /* =========================================
+   LANGUAGE SELECTOR
+   ========================================= */
+.lang-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(10, 18, 36, 0.6);
+  border: 1px solid var(--border-neon);
+  border-radius: 20px;
+  padding: 0.25rem 0.6rem;
+  backdrop-filter: blur(8px);
+}
+
+.lang-pill-btn {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.lang-pill-btn:hover {
+  color: #ffffff;
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.lang-pill-btn.active {
+  background: var(--neon-cyan);
+  color: #030712;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+}
+
+.menu-lang-bar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: -0.25rem;
+}
+
+/* =========================================
    MAIN MENU
    ========================================= */
 .main-menu-overlay {

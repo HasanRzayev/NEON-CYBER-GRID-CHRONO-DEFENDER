@@ -1,5 +1,6 @@
 import React from 'react';
 import type { PlayerStats, GameStats } from '../types/game';
+import { useLanguage } from '../i18n/LanguageContext';
 import { Shield, Heart, Zap, Clock, Trophy, Flame } from 'lucide-react';
 
 interface HUDProps {
@@ -21,6 +22,8 @@ export const HUD: React.FC<HUDProps> = ({
   onToggleChrono,
   onTriggerDash,
 }) => {
+  const { t } = useLanguage();
+
   const hpPercent = Math.max(0, (playerStats.health / playerStats.maxHealth) * 100);
   const shieldPercent = Math.max(0, (playerStats.shield / playerStats.maxShield) * 100);
   const chronoPercent = Math.max(0, (playerStats.chronoEnergy / playerStats.maxChronoEnergy) * 100);
@@ -42,7 +45,7 @@ export const HUD: React.FC<HUDProps> = ({
           <div className="vital-group">
             <div className="vital-header">
               <span className="vital-label">
-                <Heart size={14} className="icon-pulse text-red" /> HP
+                <Heart size={14} className="icon-pulse text-red" /> {t.hpLabel}
               </span>
               <span className="vital-value text-red">
                 {Math.ceil(playerStats.health)} / {playerStats.maxHealth}
@@ -60,7 +63,7 @@ export const HUD: React.FC<HUDProps> = ({
           <div className="vital-group">
             <div className="vital-header">
               <span className="vital-label">
-                <Shield size={14} className="text-cyan" /> SHIELD
+                <Shield size={14} className="text-cyan" /> {t.shieldLabel}
               </span>
               <span className="vital-value text-cyan">
                 {Math.ceil(playerStats.shield)} / {playerStats.maxShield}
@@ -78,7 +81,7 @@ export const HUD: React.FC<HUDProps> = ({
           <div className="vital-group">
             <div className="vital-header">
               <span className="vital-label">
-                <Clock size={14} className="text-chrono" /> CHRONO MATRIX
+                <Clock size={14} className="text-chrono" /> {t.chronoLabel}
               </span>
               <span className="vital-value text-chrono">
                 {Math.ceil(playerStats.chronoEnergy)}%
@@ -96,7 +99,7 @@ export const HUD: React.FC<HUDProps> = ({
         {/* Center: Wave & Boss Info */}
         <div className="hud-center">
           <div className="wave-badge">
-            <span className="wave-title">SECTOR / WAVE</span>
+            <span className="wave-title">{t.sectorWave}</span>
             <span className="wave-number">{gameStats.wave}</span>
           </div>
 
@@ -106,7 +109,7 @@ export const HUD: React.FC<HUDProps> = ({
 
           {isBossActive && (
             <div className="boss-banner">
-              <div className="boss-title">⚠️ ROGUE AI OVERLORD DETECTED</div>
+              <div className="boss-title">{t.bossWarning}</div>
               <div className="boss-bar-track">
                 <div
                   className="boss-bar-fill"
@@ -120,10 +123,10 @@ export const HUD: React.FC<HUDProps> = ({
         {/* Right: Score, Combo & Pause */}
         <div className="hud-right">
           <div className="score-display">
-            <div className="score-label">CURRENT SCORE</div>
+            <div className="score-label">{t.currentScore}</div>
             <div className="score-value">{gameStats.score.toLocaleString()}</div>
             <div className="high-score-sub">
-              <Trophy size={11} className="inline mr-1 text-gold" /> HI: {gameStats.highScore.toLocaleString()}
+              <Trophy size={11} className="inline mr-1 text-gold" /> {t.highScorePrefix}: {gameStats.highScore.toLocaleString()}
             </div>
           </div>
 
@@ -131,12 +134,12 @@ export const HUD: React.FC<HUDProps> = ({
             <div className="combo-counter">
               <Flame size={18} className="combo-flame" />
               <span className="combo-val">{playerStats.combo}x</span>
-              <span className="combo-text">COMBO</span>
+              <span className="combo-text">{t.comboLabel}</span>
             </div>
           )}
 
           <button className="hud-btn pause-btn" onClick={onPause} title="Pause (P)">
-            PAUSE
+            {t.pauseBtn}
           </button>
         </div>
       </div>
@@ -145,9 +148,9 @@ export const HUD: React.FC<HUDProps> = ({
       <div className="hud-bottom-bar">
         <div className="xp-container">
           <div className="xp-info">
-            <span className="level-badge">LVL {playerStats.level}</span>
+            <span className="level-badge">{t.lvlPrefix} {playerStats.level}</span>
             <span className="xp-ratio">
-              XP {Math.round(playerStats.xp)} / {playerStats.nextLevelXp}
+              {t.xpLabel} {Math.round(playerStats.xp)} / {playerStats.nextLevelXp}
             </span>
           </div>
           <div className="xp-track">
@@ -162,11 +165,11 @@ export const HUD: React.FC<HUDProps> = ({
             onClick={onToggleChrono}
           >
             <Clock size={16} />
-            <span>CHRONO [SPACE]</span>
+            <span>{t.chronoBtnAction}</span>
           </button>
           <button className="action-pill" onClick={onTriggerDash}>
             <Zap size={16} />
-            <span>BLINK [SHIFT]</span>
+            <span>{t.dashBtnAction}</span>
           </button>
         </div>
       </div>
